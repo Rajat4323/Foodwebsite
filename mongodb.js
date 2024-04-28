@@ -1,1 +1,24 @@
-vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/node_modules vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/public vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/public/css vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/public/css/home.css vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/public/css/login.css vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/public/css/signup.css vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/src vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/src/index.js vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/src/mongo.js vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/tempelates vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/tempelates/home.hbs vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/tempelates/login.hbs vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/tempelates/signup.hbs vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/.gitignore vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/package-lock.json vscode-remote://codespaces%2Bcrispy-disco-v6p9vp5pr4j4cqpw/workspaces/Login-Signup-Form/package.json
+const mongoose=require("mongoose")
+
+mongoose.connect("mongodb://localhost:27017/login-signup")
+.then(()=>{
+    console.log('mongoose connected');
+})
+.catch((e)=>{
+    console.log('failed');
+})
+
+const logInSchema=new mongoose.Schema({
+    name:{
+        type:String,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    }
+})
+
+const Collection=new mongoose.model("LogIncollection",logInSchema)
+
+module.exports=Collection
