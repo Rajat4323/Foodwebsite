@@ -1,62 +1,30 @@
-let trends = document.querySelectorAll(".trends");
-let button = document.querySelectorAll(".cart");
-let  cards = document.querySelectorAll(".card");
+const express = require("express");
+const app = express();
 
-let count = 0;
+//load config from env file
+require("dotenv").config();
+const PORT = process.env.PORT || 7000;
 
-trends.forEach((curElem, index)=>{
-    curElem.style.left=`${index*100}%`;
-})
+//middleware to parse json request body
+app.use(express.json());
 
+//import routes for TODO API
+const todoRoutes = require("./routes/students");
 
-const myFun  = ( ) =>{
-    trends.forEach((curImg)=>{
-        curImg.style.transform=`translateX(-${count * 100}%)`
-    })
-     
-}
+//mount the todo API routes
+app.use("/api/v1", todoRoutes);
 
-setInterval(()=>{
-    count++;
-    if(count == trends.length){
-        count=0
-    }
-    myFun()
-},4000)
+//start server
+app.listen(PORT, () => {
+  console.log(`Server started successfully at ${PORT}`);
+});
 
+//connect to the database
+const dbConnect = require("./config/databse");
+dbConnect();
 
+//default Route
+app.get("/", (req, res) => {
+  res.send(`<h1> This is HOMEPAGE baby</h1>`);
+});
 
-
-
-
-
-
-
-// // cart
-// button.forEach((curBtn)=>{
-//     curBtn.addEventListener("click", function(){
-//         alert("Added To Cart")
-//     })
-// })
-
-
-// // card detail
-// cards.forEach((curCard)=>{
-//     curCard.addEventListener("click", function(){
-//         console.log(curCard);
-
-//         let div = document.createElement("div");
-//         div.classList.add("cardDetail");
-//         div.innerHTML=`
-//         <i id="icon" class="fa-solid fa-xmark"></i>
-//         <img src=${curCard.firstElementChild.src} alt="">
-//         <h1>Fresh Foods</h1>
-//         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae odio velit mollitia nulla inventore asperiores fuga. Quasi, eius nemo. Blanditiis, consequatur sunt.</p>
-
-//         `
-//         document.querySelector("body").appendChild(div)
-//         document.getElementById("icon").addEventListener("click", function(){
-//             div.remove();
-//         })
-//     })
-// })
